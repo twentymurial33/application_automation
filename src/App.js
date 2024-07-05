@@ -1,23 +1,23 @@
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import JobList from "./components/JobList.js";
 
-function App() {
+const App = () => {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    // Replace with actual API call to job board
+    fetch("https://api.example.com/jobs")
+      .then((response) => response.json())
+      .then((data) => setJobs(data.jobs))
+      .catch((error) => console.error("Error fetching jobs:", error));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Web Developer Job Board</h1>
+      <JobList jobs={jobs} />
     </div>
   );
-}
+};
 
 export default App;
