@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobList from "./components/JobList.js";
+import SignIn from "./SignIn.js";
 
 const App = () => {
   const [jobs, setJobs] = useState([]);
@@ -15,6 +16,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Web Developer Job Board</h1>
+      <SignIn />
       <JobList jobs={jobs} />
     </div>
   );
