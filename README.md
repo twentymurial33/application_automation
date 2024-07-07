@@ -17,5 +17,8 @@ This project was developed to help automate the job application process. Creatin
 
 ### How users will use this application
 
+### Documentation
+[https://github.com/linkedin-developers]
+
 
 
