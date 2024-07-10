@@ -1,9 +1,10 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -11,18 +12,25 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    console.log("Email:", email);
+    console.log("Password:", password);
+    const isAuthenticated = true;
+    if (isAuthenticated) {
+      navigate("/upload");
+    }
   };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <h1 style={{ textAlign: "center" }}>Software Developer Job Board</h1>
         <Box
           sx={{
             marginTop: 8,
@@ -46,6 +54,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -56,6 +66,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -70,7 +82,6 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container></Grid>
           </Box>
         </Box>
       </Container>

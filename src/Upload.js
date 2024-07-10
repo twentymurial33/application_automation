@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Header from "./components/Header";
 
 function Upload() {
@@ -17,13 +18,27 @@ function Upload() {
   return (
     <div>
       <Header />
-      <div className="file-upload" style={{ marginTop: "150px" }}>
+      <StyledDiv className="file-upload" style={{ marginTop: "150px" }}>
         <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload</button>
+        <StyledButton onClick={handleUpload}>Upload</StyledButton>
         {selectedFile && <p>Selected file: {selectedFile.name}</p>}
-      </div>
+      </StyledDiv>
     </div>
   );
 }
 
+const StyledDiv = styled.div`
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledButton = styled.button`
+  background-color: pink;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+`;
 export default Upload;
