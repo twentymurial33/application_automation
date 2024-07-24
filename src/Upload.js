@@ -1,17 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
+import upload from "./api/upload";
 
 function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
+
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
-  const handleUpload = () => {
-    if (selectedFile) {
-      console.log(`Uploading: ${selectedFile.name}`);
-    } else {
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
       console.log("No file selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", selectedFile);
+
+    try {
+      const response = await fetch("api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      console.log("Upload result:", result);
+    } catch (error) {
+      console.error("Error uploading file:", error);
     }
   };
 
@@ -41,4 +58,5 @@ const StyledButton = styled.button`
   border: none;
   color: white;
 `;
+
 export default Upload;
