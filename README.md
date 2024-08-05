@@ -20,5 +20,10 @@ This project was developed to help automate the job application process. Creatin
 ### Documentation
 [https://github.com/linkedin-developers]
 
+or
+
+## API Routes
+API routes can be accessed on http://localhost:3000/api/upload. 
+
 
 
