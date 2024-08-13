@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -6,8 +6,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
-const navItems = ["Home", "About", "Contact"];
+const navItems = ["Home", "About"];
 
 export default function DrawerAppBar(props) {
   const { window } = props;
@@ -39,9 +40,13 @@ export default function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
+              <Link
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                passHref
+                key={item}
+              >
+                <Button sx={{ color: "#fff" }}>{item}</Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>
