@@ -12,15 +12,11 @@ This project was developed to help automate the job application process. Creatin
 - Simplify
 - ZipRecruiter
 
-
-### How to run the app
-
-### How users will use this application
-
-### Documentation
-[https://github.com/linkedin-developers]
-
-or
+## Technologies Used
+- Prisma
+- React
+- PostgreSQL
+- ChatGPT API
 
 ## API Routes
 API routes can be accessed on http://localhost:3000/api/upload. 
