@@ -17,6 +17,7 @@ This project was developed to help automate the job application process. Creatin
 - React
 - PostgreSQL
 - ChatGPT API
+- LangChain
 
 ## API Routes
 API routes can be accessed on http://localhost:5000/api/upload. 
