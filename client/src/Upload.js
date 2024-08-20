@@ -16,18 +16,18 @@ function Upload() {
       console.log("No file selected");
       return;
     }
-
+    const api = process.env.REACT_APP_API;
     const formData = new FormData();
     formData.append("resume", selectedFile);
 
     try {
-      const response = await fetch("/api/upload", {
-        // Ensure this matches your backend route
+      const response = await fetch(`${api}/upload`, {
         method: "POST",
         body: formData,
       });
-
-      const result = await response.json();
+      const text = await response.text();
+      console.log("Response text:", text);
+      const result = JSON.parse(text);
       console.log("Upload result:", result);
     } catch (error) {
       console.error("Error uploading file:", error);
