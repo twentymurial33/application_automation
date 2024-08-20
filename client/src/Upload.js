@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
-import upload from "./api/upload";
 
 function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,7 +9,9 @@ function Upload() {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (event) => {
+    event.preventDefault();
+
     if (!selectedFile) {
       console.log("No file selected");
       return;
@@ -20,7 +21,8 @@ function Upload() {
     formData.append("resume", selectedFile);
 
     try {
-      const response = await fetch("api/upload", {
+      const response = await fetch("/api/upload", {
+        // Ensure this matches your backend route
         method: "POST",
         body: formData,
       });
@@ -57,6 +59,7 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border: none;
   color: white;
+  cursor: pointer;
 `;
 
 export default Upload;
