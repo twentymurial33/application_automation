@@ -1,52 +1,72 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Header from "./components/Header";
 
 function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
+  const [keywords, setKeywords] = useState([]);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleUpload = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!selectedFile) {
-      console.log("No file selected");
+      setUploadStatus("No file selected");
       return;
     }
-    const api = process.env.REACT_APP_API;
     const formData = new FormData();
     formData.append("resume", selectedFile);
 
     try {
-      const response = await fetch(`${api}/upload`, {
-        method: "POST",
-        body: formData,
-      });
-      const text = await response.text();
-      console.log("Response text:", text);
-      const result = JSON.parse(text);
-      console.log("Upload result:", result);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setUploadStatus("File uploaded and processed");
+      setKeywords(response.data.keywords);
     } catch (error) {
       console.error("Error uploading file:", error);
+      setUploadStatus("Error uploading file");
     }
   };
 
   return (
     <div>
       <Header />
-      <StyledDiv className="file-upload" style={{ marginTop: "150px" }}>
-        <input type="file" onChange={handleFileChange} />
-        <StyledButton onClick={handleUpload}>Upload</StyledButton>
+      <StyledDiv onSubmit={handleSubmit} style={{ marginTop: "150px" }}>
+        <input
+          type="file"
+          accept=".pdf,.doc,.docx"
+          onChange={handleFileChange}
+        />
+        <StyledButton type="submit">Upload</StyledButton>
+        {uploadStatus && <p>{uploadStatus}</p>}
         {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+        {keywords.length > 0 && (
+          <div>
+            <h2>Extracted Keywords:</h2>
+            <ul>
+              {keywords.map((keyword, index) => (
+                <li key={index}>{keyword}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </StyledDiv>
     </div>
   );
 }
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.form`
   margin-top: 100px;
   display: flex;
   flex-direction: column;

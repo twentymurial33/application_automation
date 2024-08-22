@@ -42,7 +42,7 @@ export default function DrawerAppBar(props) {
             {navItems.map((item) => (
               <Link
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                passHref
+                passhref
                 key={item}
               >
                 <Button sx={{ color: "#fff" }}>{item}</Button>

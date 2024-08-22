@@ -13,7 +13,7 @@ const port = 5000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use("/api", apiRoutes);
+// app.use("/api", apiRoutes);
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
