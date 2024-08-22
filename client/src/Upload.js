@@ -23,7 +23,7 @@ function Upload() {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}`,
+        `${process.env.REACT_APP_API_URL}/upload`,
         formData,
         {
           headers: {
@@ -48,9 +48,19 @@ function Upload() {
           accept=".pdf,.doc,.docx"
           onChange={handleFileChange}
         />
-        {/* <StyledButton onClick={handleUpload}>Upload</StyledButton> */}
         <StyledButton type="submit">Upload</StyledButton>
+        {uploadStatus && <p>{uploadStatus}</p>}
         {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+        {keywords.length > 0 && (
+          <div>
+            <h2>Extracted Keywords:</h2>
+            <ul>
+              {keywords.map((keyword, index) => (
+                <li key={index}>{keyword}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </StyledDiv>
     </div>
   );
@@ -73,15 +83,3 @@ const StyledButton = styled.button`
 `;
 
 export default Upload;
-
-// {uploadStatus && <p>{uploadStatus}</p>}
-// {keywords.length > 0 && (
-//   <div>
-//     <h2>Extracted Keywords:</h2>
-//     <ul>
-//       {keywords.map((keyword, index) => (
-//         <li key={index}>{keyword}</li>
-//       ))}
-//     </ul>
-//   </div>
-// )}
